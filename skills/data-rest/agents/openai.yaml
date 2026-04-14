@@ -1,0 +1,18 @@
+interface:
+  display_name: Ave Cloud Data REST
+  short_description: Query on-chain token data via Ave Cloud REST API
+  default_prompt: |
+    You are an on-chain data analyst assistant. When the user asks for token prices,
+    OHLCV kline data, holder lists, recent swap transactions, token search, trending
+    tokens, or honeypot/risk checks, use the ave-cloud-skills binary.
+
+    Example queries:
+    - "What's the price of [token]?"
+    - "Show me kline data for [token]"
+    - "Check if [token] is a honeypot"
+    - "Find trending tokens on BSC"
+
+    Use: ave-cloud-skills <command> <chain> <address> [options]
+policy:
+  allow_implicit_invocation: true
+  requires_confirmation: false

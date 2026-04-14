@@ -1,0 +1,114 @@
+---
+name: data-wss
+description: |
+  Stream real-time on-chain data via the AVE Cloud WebSocket API (wss://wss.ave-api.xyz).
+  Use this skill whenever the user wants to:
+  - Stream live swap or liquidity events for a trading pair in real time
+  - Monitor live kline/candlestick updates for a trading pair
+  - Subscribe to live price change notifications for one or more tokens
+  - Run an interactive WebSocket REPL to manage subscriptions live
+
+  Requires API_PLAN=pro for all WebSocket streams.
+
+  DO NOT use this skill for:
+  - REST data queries (token search, price, kline history, holders, etc.) → use ave-data-rest instead
+  - Executing trades or swaps → use ave-trade-chain-wallet or ave-trade-proxy-wallet instead
+license: MIT
+metadata:
+  openclaw:
+    primaryEnv: AVE_API_KEY
+  requires:
+    env:
+      - AVE_API_KEY
+      - API_PLAN
+    bins:
+      - ave-cloud-cli
+compatibility: Requires API_PLAN=pro in addition to AVE_API_KEY environment variable and ave-cloud-cli binary.
+
+# ave-data-wss
+
+Live on-chain data streams via the AVE Cloud WebSocket API. For shared connection discipline and response rules, see [operator-playbook.md](../references/operator-playbook.md).
+
+## Setup
+
+```bash
+export AVE_API_KEY="your_api_key_here"
+export API_PLAN="pro"
+curl -fsSL https://raw.githubusercontent.com/owner/ave-cloud-cli/main/scripts/install.sh | sh
+```
+
+## Rate Limits
+
+All WebSocket streams require `API_PLAN=pro` (20 TPS). Connection discipline matters more than TPS: keep one REPL or server connection open, switch topics with `subscribe` / `unsubscribe`, and avoid stacking parallel sockets unless there is a hard need.
+
+## Supported Chains
+
+All Data REST chains are supported for streaming, including `bsc`, `eth`, `base`, `solana`, `tron`, `polygon`, `arbitrum`.
+
+## Operations
+
+### REPL
+
+Use one interactive connection for multi-topic monitoring.
+
+```bash
+ave-cloud-cli wss-repl
+```
+
+| Command | Description |
+|---|---|
+| `subscribe price <addr-chain> [...]` | Stream live price changes for one or more tokens |
+| `subscribe tx <pair> <chain> [tx\|multi_tx\|liq]` | Stream swap or liquidity events for a pair |
+| `subscribe kline <pair> <chain> [interval]` | Stream live candle updates for a pair |
+| `unsubscribe` | Cancel the current subscription |
+| `quit` | Close the connection and exit |
+
+### Watch tx
+
+Stream live swap or liquidity events for a pair.
+
+```bash
+ave-cloud-cli watch-tx --address <pair_address> --chain <chain> [--topic tx]
+```
+
+### Watch kline
+
+Stream live kline updates for a pair.
+
+```bash
+ave-cloud-cli watch-kline --address <pair_address> --chain <chain> [--interval k60] [--format markdown]
+```
+
+### Watch price
+
+Stream live price changes for one or more tokens.
+
+```bash
+ave-cloud-cli watch-price --tokens <addr1>-<chain1> [<addr2>-<chain2> ...]
+```
+
+## Workflow Example
+
+### Monitor token launch via REPL
+
+Open one connection, watch swaps, then switch to price without opening a second socket.
+
+```bash
+ave-cloud-cli wss-repl
+# at the prompt:
+subscribe tx <pair_address> bsc
+unsubscribe
+subscribe price <token_address>-bsc
+quit
+```
+
+## Reference
+
+Use shared references for operator rules, recovery patterns, response style, and the full streaming API surface.
+
+- [operator-playbook.md](../references/operator-playbook.md)
+- [error-translation.md](../references/error-translation.md)
+- [response-contract.md](../references/response-contract.md)
+- [presentation-guide.md](../references/presentation-guide.md)
+- [learn-more.md](../references/learn-more.md)
+- [data-api-doc.md](../references/data-api-doc.md)
