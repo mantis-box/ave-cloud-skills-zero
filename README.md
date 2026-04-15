@@ -9,7 +9,7 @@ This repository contains 5 skill suites:
 | Skill | Description |
 |-------|-------------|
 | [ave-wallet-suite](skills/ave-wallet-suite/) | Top-level router that decides which sub-skill to use |
-| [ave-data-rest](skills/data-rest/) | REST API queries: token search, price, kline, holders, risk, trending |
+| [ave-data-rest](skills/data-rest/) | REST API queries: token search, price, kline, holders, risk, trending, smart wallets |
 | [ave-data-wss](skills/data-wss/) | WebSocket streams: live prices, transactions, kline updates |
 | [ave-trade-chain-wallet](skills/trade-chain-wallet/) | Self-custody trading with local key/mnemonic signing |
 | [ave-trade-proxy-wallet](skills/trade-proxy-wallet/) | Server-managed proxy wallet trading |
