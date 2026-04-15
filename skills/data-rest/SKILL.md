@@ -1,5 +1,6 @@
 ---
 name: data-rest
+version: 2.4.0
 description: |
   Query on-chain crypto data via the AVE Cloud Data REST API (https://cloud.ave.ai/).
   Use this skill whenever the user wants to:
@@ -28,14 +29,20 @@ description: |
 license: MIT
 metadata:
   openclaw:
+    homepage: https://github.com/ave-air/ave-cloud-skills-zero
+    emoji: "📊"
+    install:
+      - kind: binary
+        url: https://raw.githubusercontent.com/owner/ave-cloud-cli/main/scripts/install.sh
+        bins: [ave-cloud-cli]
     primaryEnv: AVE_API_KEY
-  requires:
-    env:
-      - AVE_API_KEY
-      - API_PLAN
-    bins:
-      - ave-cloud-cli
-compatibility: Requires AVE_API_KEY and API_PLAN environment variables and ave-cloud-cli binary.
+    requires:
+      env:
+        - AVE_API_KEY
+        - API_PLAN
+      bins:
+        - ave-cloud-cli
+    allow_implicit_invocation: true
 
 # ave-data-rest
 

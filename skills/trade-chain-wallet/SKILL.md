@@ -1,5 +1,6 @@
 ---
 name: trade-chain-wallet
+version: 2.4.0
 description: |
   Execute self-custody DEX trades via the AVE Cloud Chain Wallet Trading API (https://bot-api.ave.ai).
   Use this skill whenever the user wants to:
@@ -22,13 +23,20 @@ description: |
 license: MIT
 metadata:
   openclaw:
+    homepage: https://github.com/ave-air/ave-cloud-skills-zero
+    emoji: "🔐"
+    install:
+      - kind: binary
+        url: https://raw.githubusercontent.com/owner/ave-cloud-cli/main/scripts/install.sh
+        bins: [ave-cloud-cli]
     primaryEnv: AVE_API_KEY
-  requires:
-    env:
-      - AVE_API_KEY
-    bins:
-      - ave-cloud-cli
-compatibility: Requires AVE_API_KEY environment variable and ave-cloud-cli binary.
+    requires:
+      env:
+        - AVE_API_KEY
+      bins:
+        - ave-cloud-cli
+    allow_implicit_invocation: false
+    requires_confirmation: true
 
 # ave-trade-chain-wallet
 

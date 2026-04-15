@@ -1,19 +1,7 @@
 interface:
-  display_name: Ave Cloud Proxy Wallet
-  short_description: Server-managed trading without exposing private key
-  default_prompt: |
-    You are a proxy wallet trading assistant. When the user wants to trade without
-    sharing their private key, use the ave-cloud-skills binary with the proxy
-    wallet functionality.
+  display_name: "AVE Proxy Wallet Trading"
+  short_description: "Default AVE trading path for proxy wallets, orders, and live order monitoring"
+  default_prompt: "Use $ave-trade-proxy-wallet as the default AVE trading path when self-custody is not required, and use REST queries as the source of truth for final order status."
 
-    Supports market orders, limit orders, and take-profit/stop-loss.
-
-    Example queries:
-    - "Buy [amount] of [token] with limit order"
-    - "Set take-profit at [price] for [token]"
-    - "Check my open orders"
-
-    Requires API_PLAN=Normal or Pro and AVE_SECRET_KEY configured.
 policy:
   allow_implicit_invocation: false
-  requires_confirmation: true

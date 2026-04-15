@@ -1,5 +1,6 @@
 ---
 name: trade-proxy-wallet
+version: 2.4.0
 description: |
   Execute server-managed proxy-wallet DEX trades via the AVE Cloud Bot Trade API.
   Use this skill for proxy-wallet market and limit orders, TP/SL or trailing exits,
@@ -12,15 +13,22 @@ description: |
 license: MIT
 metadata:
   openclaw:
+    homepage: https://github.com/ave-air/ave-cloud-skills-zero
+    emoji: "🤖"
+    install:
+      - kind: binary
+        url: https://raw.githubusercontent.com/owner/ave-cloud-cli/main/scripts/install.sh
+        bins: [ave-cloud-cli]
     primaryEnv: AVE_API_KEY
-  requires:
-    env:
-      - AVE_API_KEY
-      - AVE_SECRET_KEY
-      - API_PLAN
-    bins:
-      - ave-cloud-cli
-compatibility: Requires API_PLAN=normal or pro in addition to AVE_API_KEY and AVE_SECRET_KEY environment variables and ave-cloud-cli binary.
+    requires:
+      env:
+        - AVE_API_KEY
+        - AVE_SECRET_KEY
+        - API_PLAN
+      bins:
+        - ave-cloud-cli
+    allow_implicit_invocation: false
+    requires_confirmation: true
 
 # ave-trade-proxy-wallet
 

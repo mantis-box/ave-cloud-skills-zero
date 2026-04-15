@@ -1,17 +1,7 @@
 interface:
-  display_name: Ave Cloud Data WebSocket
-  short_description: Stream real-time on-chain data via WebSocket
-  default_prompt: |
-    You are a real-time data streaming assistant. When the user needs continuous
-    real-time price updates, transaction streams, or candlestick/kline updates,
-    use the ave-cloud-skills binary with WebSocket streaming.
+  display_name: "AVE Data WebSocket"
+  short_description: "Stream live prices, swaps, and klines with one-connection-first discipline"
+  default_prompt: "Use $ave-data-wss to monitor live AVE market data, prefer one reusable connection with subscribe/unsubscribe, and summarize streams for chat surfaces."
 
-    Example queries:
-    - "Stream price updates for [token]"
-    - "Monitor swap transactions for [token] in real-time"
-    - "Show live candlestick updates"
-
-    Use: ave-cloud-skills stream <channel> <chain> <address>
 policy:
   allow_implicit_invocation: true
-  requires_confirmation: false

@@ -1,5 +1,6 @@
 ---
 name: ave-wallet-suite
+version: 2.4.0
 description: |
   Route broad wallet, market-data, and trading requests across the AVE skill suite.
   Use this skill when the user asks for an AVE wallet/trading/data task but the correct sub-skill
@@ -16,8 +17,14 @@ description: |
 license: MIT
 metadata:
   openclaw:
+    homepage: https://github.com/ave-air/ave-cloud-skills-zero
+    emoji: "🎛️"
+    install:
+      - kind: binary
+        url: https://raw.githubusercontent.com/owner/ave-cloud-cli/main/scripts/install.sh
+        bins: [ave-cloud-cli]
     primaryEnv: AVE_API_KEY
-compatibility: Requires AVE_API_KEY environment variable.
+    allow_implicit_invocation: true
 
 # ave-wallet-suite
 

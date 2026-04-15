@@ -1,5 +1,6 @@
 ---
 name: data-wss
+version: 2.4.0
 description: |
   Stream real-time on-chain data via the AVE Cloud WebSocket API (wss://wss.ave-api.xyz).
   Use this skill whenever the user wants to:
@@ -7,6 +8,7 @@ description: |
   - Monitor live kline/candlestick updates for a trading pair
   - Subscribe to live price change notifications for one or more tokens
   - Run an interactive WebSocket REPL to manage subscriptions live
+  - Run a background daemon for persistent WSS connection
 
   Requires API_PLAN=pro for all WebSocket streams.
 
@@ -16,14 +18,20 @@ description: |
 license: MIT
 metadata:
   openclaw:
+    homepage: https://github.com/ave-air/ave-cloud-skills-zero
+    emoji: "📡"
+    install:
+      - kind: binary
+        url: https://raw.githubusercontent.com/owner/ave-cloud-cli/main/scripts/install.sh
+        bins: [ave-cloud-cli]
     primaryEnv: AVE_API_KEY
-  requires:
-    env:
-      - AVE_API_KEY
-      - API_PLAN
-    bins:
-      - ave-cloud-cli
-compatibility: Requires API_PLAN=pro in addition to AVE_API_KEY environment variable and ave-cloud-cli binary.
+    requires:
+      env:
+        - AVE_API_KEY
+        - API_PLAN
+      bins:
+        - ave-cloud-cli
+    allow_implicit_invocation: true
 
 # ave-data-wss
 
@@ -86,6 +94,21 @@ Stream live price changes for one or more tokens.
 ```bash
 ave-cloud-cli watch-price --tokens <addr1>-<chain1> [<addr2>-<chain2> ...]
 ```
+
+### Daemon
+
+Run a persistent background WSS connection for the data-wss skill. The daemon connects directly to `wss://wss.ave-api.xyz` (no Docker required) and auto-reconnects on disconnect with exponential backoff.
+
+```bash
+ave-cloud-cli daemon --skill data-wss
+```
+
+## PROD Quirks
+
+- **No Docker required**: WSS connects directly to `wss://wss.ave-api.xyz` via the `ave-cloud-cli` binary
+- **API_PLAN=pro required**: All WSS operations require `API_PLAN=pro`
+- **One connection preferred**: Keep one reusable connection open, switch topics with `subscribe` / `unsubscribe`; max 5 concurrent connections
+- **Auto-reconnect**: The daemon automatically reconnects with exponential backoff on disconnect
 
 ## Workflow Example
 
